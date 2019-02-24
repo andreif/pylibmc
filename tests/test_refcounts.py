@@ -3,6 +3,7 @@ from __future__ import print_function
 
 import datetime
 import sys
+import unittest
 
 from nose.tools import eq_, ok_
 
@@ -13,6 +14,10 @@ from tests import PylibmcTestCase
 from tests import get_refcounts
 
 
+JIT = not hasattr(sys, 'getrefcount')
+
+
+@unittest.skipIf(JIT, "Disabled for JIT implementations")
 class RefcountTests(PylibmcTestCase):
     """Test that refcounts are invariant under pylibmc operations.
 
