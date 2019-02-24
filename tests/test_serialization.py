@@ -7,7 +7,7 @@ import datetime
 import json
 import sys
 
-from nose.tools import eq_, ok_
+from nose.tools import eq_, assert_raises
 
 import pylibmc
 import _pylibmc
@@ -224,9 +224,6 @@ class SerializationTests(PylibmcTestCase):
         self._assert_set_raises(c, KEY, VALUE)
         eq_(get_refcounts(refcountables), initial_refcounts)
 
-        try:
+        with assert_raises(ValueError):
             c.set_multi({KEY: DUMMY})
-        except ValueError:
-            raised = True
-        assert raised
         eq_(get_refcounts(refcountables), initial_refcounts)

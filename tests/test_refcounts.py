@@ -14,10 +14,6 @@ from tests import PylibmcTestCase
 from tests import get_refcounts
 
 
-JIT = not hasattr(sys, 'getrefcount')
-
-
-@unittest.skipIf(JIT, "Disabled for JIT implementations")
 class RefcountTests(PylibmcTestCase):
     """Test that refcounts are invariant under pylibmc operations.
 
